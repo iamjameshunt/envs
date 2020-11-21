@@ -1,0 +1,36 @@
+#!/bin/bash
+set -eu
+
+#
+# userify Dockerfile [addon/file ...]
+#
+# This script concatenates its arguments and then adds the
+# requisite RUN / ENV / USER / WORKDIR build instructions
+# to create a named user with the correct UID.
+#
+# The following environment variables affect this beahvior:
+#
+#   ENV_UID - The numeric user ID to asssign the new account.
+#             Defaults to $UID
+#
+#   ENV_USER - The username to use for the new account.
+#              Defaults to $USER, and if that fails, "dev"
+#
+#   ENV_SHELL - What shell to assign to the new account.
+#               Defaults to $SHELL, and if that fails, bash.
+#
+#   ENV_HOME - Where the new user's home directory should be.
+#              Defaults to /home/$USER.
+#
+
+their_uid=${ENV_UID:-$UID}
+their_username=${ENV_USER:-${USER:-dev}}
+their_shell=${ENV_SHELL:-${SHELL:-/bin/bash}}
+their_home=${ENV_HOME:-/home/${their_username}}
+
+cat "$@" | sed -e "s|FROM iamjameshunt/env|FROM ${ENV_BASE:-iamjameshunt/env}|"
+echo
+echo "RUN useradd -m -u ${their_uid} ${their_username} -s ${their_shell} -d ${their_home}"
+echo "ENV SHELL=${their_shell}"
+echo "USER ${their_username}"
+echo "WORKDIR ${their_home}"

@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ "x$1" = "x" ]; then
+  echo >&2 "USAGE: [IN=image/name] $0 TYPE"
+fi
+exec docker run --rm -it \
+  --hostname "$1.$(hostname -f 2>/dev/null)" \
+  --network host \
+  -v $HOME:/home/$USER \
+  ${IN:-iamjameshunt/env}:$1
