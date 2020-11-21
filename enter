@@ -2,8 +2,14 @@
 if [ "x$1" = "x" ]; then
   echo >&2 "USAGE: [IN=image/name] $0 TYPE"
 fi
-exec docker run --rm -it \
+
+opts=
+if pwd | grep -q ^$HOME; then
+	opts="$opts -w $(pwd)"
+fi
+
+exec docker run --rm -it $opts \
   --hostname "$1.$(hostname -f 2>/dev/null)" \
   --network host \
-  -v $HOME:/home/$USER \
+  -v $HOME:$HOME \
   ${IN:-iamjameshunt/env}:$1
