@@ -30,7 +30,7 @@ their_home=${ENV_HOME:-/home/${their_username}}
 
 cat "$@" | sed -e "s|FROM iamjameshunt/env|FROM ${ENV_BASE:-iamjameshunt/env}|"
 echo
-echo "RUN useradd -m -u ${their_uid} ${their_username} -s ${their_shell} -d ${their_home}"
+echo "RUN useradd -m -u ${their_uid} ${their_username} -s ${their_shell} -d ${their_home} -G staff"
 echo "ENV SHELL=${their_shell}"
 echo "USER ${their_username}"
 echo "WORKDIR ${their_home}"
