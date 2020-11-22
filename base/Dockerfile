@@ -13,6 +13,8 @@ RUN apt-get update \
       iproute2 \
       iputils-ping \
       locales \
+      make \
+      man \
       net-tools \
       netcat \
       openssh-client \
