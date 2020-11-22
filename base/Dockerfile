@@ -8,6 +8,7 @@ RUN apt-get update \
       bind9-utils \
       curl \
       git \
+      gnupg \
       inotify-tools \
       iproute2 \
       iputils-ping \
