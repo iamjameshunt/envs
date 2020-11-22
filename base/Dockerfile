@@ -22,6 +22,7 @@ RUN apt-get update \
       tree \
       vim
 
+# sudo make me a sandwich
 RUN echo '%staff  ALL=(ALL:ALL) NOPASSWD:ALL' > /etc/sudoers.d/staffers
 
 # generate en/utf-8 locale for emoji display
