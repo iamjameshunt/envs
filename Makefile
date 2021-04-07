@@ -2,11 +2,13 @@ IMAGE  ?= iamjameshunt/env
 PREFIX ?= /usr/local
 OPTS   ?=
 
-all: base go node perl rust verse vanilla
+all: base c go node perl rust verse vanilla
 
 base:
 	docker build -t $(IMAGE):$@ $(OPTS) $@/
 
+c: base
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 go: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 node: base
@@ -23,4 +25,4 @@ vanilla: base
 install:
 	install -m 0755 enter $(PREFIX)/bin
 
-.PHONY: base go node perl rust vanilla rust
+.PHONY: base c go node perl rust verse vanilla
