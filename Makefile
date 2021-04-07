@@ -1,21 +1,22 @@
 IMAGE  ?= iamjameshunt/env
 PREFIX ?= /usr/local
+OPTS   ?=
 
 all: base go node perl vanilla rust
 
 base:
-	docker build -t $(IMAGE):$@ $@/
+	docker build -t $(IMAGE):$@ $(OPTS) $@/
 
 go: base
-	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $@/
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 node: base
-	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $@/
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 perl: base
-	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $@/
-vanilla: base
-	ENV_BASE=$(IMAGE) ./userify base/Dockerfile | docker build -t $(IMAGE):$@ -f - base/
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 rust: base
-	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $@/
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
+vanilla: base
+	ENV_BASE=$(IMAGE) ./userify base/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) base/
 
 install:
 	install -m 0755 enter $(PREFIX)/bin
