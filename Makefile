@@ -2,7 +2,7 @@ IMAGE  ?= iamjameshunt/env
 PREFIX ?= /usr/local
 OPTS   ?=
 
-all: base c go node perl rust verse vanilla
+all: base c go node lisp perl rust verse vanilla
 
 base:
 	docker build -t $(IMAGE):$@ $(OPTS) $@/
@@ -10,6 +10,8 @@ base:
 c: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 go: base
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
+lisp: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 node: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
@@ -25,4 +27,4 @@ vanilla: base
 install:
 	install -m 0755 enter $(PREFIX)/bin
 
-.PHONY: base c go node perl rust verse vanilla
+.PHONY: base c go node lisp perl rust verse vanilla
