@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ENV IN_DOCKERIZED_ENVIRONMENT=yes
 
 RUN yes | unminimize
@@ -12,6 +12,8 @@ RUN apt-get update \
       inotify-tools \
       iproute2 \
       iputils-ping \
+      libtimedate-perl \
+      libyaml-perl \
       locales \
       make \
       man \
