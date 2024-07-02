@@ -6,6 +6,8 @@ all: base c data go node lisp perl php rust snmp verse vanilla
 
 base:
 	docker build -t $(IMAGE):$@ $(OPTS) $@/
+base-22.04:
+	docker build -t $(IMAGE):$@ $(OPTS) base/ -f base/Dockerfile-22.04
 base-20.04:
 	docker build -t $(IMAGE):$@ $(OPTS) base/ -f base/Dockerfile-20.04
 base-18.04:

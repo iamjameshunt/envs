@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 ENV IN_DOCKERIZED_ENVIRONMENT=yes
 
 RUN yes | unminimize
@@ -18,7 +18,7 @@ RUN apt-get update \
       make \
       man \
       net-tools \
-      netcat-openbsd \
+      netcat \
       openssh-client \
       sudo \
       tcpdump \
