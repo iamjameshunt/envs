@@ -2,7 +2,7 @@ IMAGE  ?= iamjameshunt/env
 PREFIX ?= /usr/local
 OPTS   ?=
 
-all: base c data go node lisp perl php rust snmp verse vanilla
+all: base c data go lisp node perl php ruby rust snmp verse vanilla
 
 base:
 	docker build -t $(IMAGE):$@ $(OPTS) $@/
