@@ -5,4 +5,6 @@ RUN apt-get update \
  && apt-get install -y build-essential libpq-dev git python3-pip
 RUN git clone https://github.com/dbt-labs/dbt-core.git \
  && cd dbt-core \
- && pip install -r requirements.txt
+ && pip install -r requirements.txt --break-system-packages
+
+# NOTE: --break-system-packages added with 24.04 base
