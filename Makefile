@@ -2,10 +2,14 @@ IMAGE  ?= iamjameshunt/env
 PREFIX ?= /usr/local
 OPTS   ?=
 
-all: base c data go node lisp perl php rust verse vanilla
+all: base c data go node lisp perl php rust snmp verse vanilla
 
 base:
 	docker build -t $(IMAGE):$@ $(OPTS) $@/
+base-20.04:
+	docker build -t $(IMAGE):$@ $(OPTS) base/ -f base/Dockerfile-20.04
+base-18.04:
+	docker build -t $(IMAGE):$@ $(OPTS) base/ -f base/Dockerfile-18.04
 
 c: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
@@ -21,7 +25,11 @@ perl: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 php: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
+ruby: base
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 rust: base
+	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
+snmp: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
 verse: base
 	ENV_BASE=$(IMAGE) ./userify $@/Dockerfile | docker build -t $(IMAGE):$@ -f - $(OPTS) $@/
