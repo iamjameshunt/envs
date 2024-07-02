@@ -1,3 +1,4 @@
 FROM iamjameshunt/env:base
 
-RUN apt-get install -y php-cli
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y php-cli
