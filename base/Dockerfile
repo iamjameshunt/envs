@@ -35,3 +35,8 @@ RUN echo en_US.UTF-8 UTF-8 > /etc/local.gen \
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
+
+# for 24.04 onward, remove the `ubuntu' user (uid:1000) they
+# so helpfully create for us, since we are bringing our own
+# user (sa:1000) by way of the `userify' script.
+RUN userdel -r ubuntu
